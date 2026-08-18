@@ -1,0 +1,17 @@
+{
+  "name": "목수 각도자",
+  "short_name": "각도자",
+  "description": "서까래·물매·다각형 마이터각을 현장에서 바로 구하는 목수용 계산기",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0E1215",
+  "theme_color": "#0E1215",
+  "lang": "ko",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512-maskable.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
