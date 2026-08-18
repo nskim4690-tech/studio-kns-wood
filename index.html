@@ -353,14 +353,14 @@
     position:fixed;
     left:0;right:0;bottom:0;
     z-index:30;
-    display:flex;
+    display:grid;
+    grid-template-columns:1fr 1fr;
     gap:8px;
     padding:8px 14px calc(8px + env(safe-area-inset-bottom));
     background:var(--surface);
     border-top:1px solid var(--line-strong);
   }
   .bar a{
-    flex:1;
     display:flex;
     align-items:center;
     justify-content:center;
@@ -374,6 +374,13 @@
   .bar .call{background:var(--accent);color:var(--bg);}
   .bar .call:active{background:var(--accent-deep);}
   .bar .ig{background:transparent;color:var(--accent);border:1.5px solid var(--accent);}
+  .bar .calc{
+    grid-column:1 / -1;
+    background:var(--surface-2);
+    color:var(--ink);
+    border:1.5px solid var(--line-strong);
+  }
+  .bar .calc:active{background:var(--bg);}
   .bar svg{width:16px;height:16px;flex:none;}
 
   a:focus-visible,.bar a:focus-visible,.menu-btn:focus-visible,.drawer-close:focus-visible{
@@ -409,8 +416,11 @@
     .bar{
       position:static;border-top:none;background:transparent;
       max-width:640px;margin:0 auto;padding:18px 20px;
+      grid-template-columns:max-content max-content;
+      justify-content:start;
     }
-    .bar a{flex:none;min-width:150px;}
+    .bar a{min-width:150px;padding:0 18px;}
+    .bar .calc{justify-self:start;}
   }
   @media (max-width:899px){
     .topbar .who{display:none;}
@@ -640,14 +650,6 @@
     </div>
 
     <div class="work">
-      <p class="work-name">목수 각도자 (앱)</p>
-      <div class="tag-train">2026년 8월</div>
-      <p class="soft">서까래 각도, 물매, 다각형 마이터각을 현장에서 바로 구하는 계산기입니다.
-         휴대폰이나 PC에 설치해두면 인터넷 없이도 씁니다.</p>
-      <a class="btn-ig" href="calc/" target="_blank" rel="noopener">📐 목수 각도자 열기</a>
-    </div>
-
-    <div class="work">
       <p class="work-name">내 홈페이지</p>
       <div class="tag-train">2026년 8월</div>
       <p class="soft">직접 만들었습니다. 나무를 다루는 법을 배우면서,
@@ -689,6 +691,14 @@
       <circle cx="17.6" cy="6.4" r="1.2" fill="currentColor" stroke="none"/>
     </svg>
     인스타그램
+  </a>
+  <a class="calc" href="calc/" target="_blank" rel="noopener">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+         stroke-linejoin="round" stroke-linecap="round" aria-hidden="true">
+      <path d="M3 20 L21 20 L3 6 Z"/>
+      <path d="M3 16.5 L6.5 16.5 L6.5 20"/>
+    </svg>
+    목수 각도자
   </a>
 </nav>
 </main>
