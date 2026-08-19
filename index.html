@@ -605,6 +605,13 @@
     </div>
 
     <div class="work">
+      <p class="work-name">경첩상자</p>
+      <div class="tag-train">훈련 실습</div>
+      <p class="soft">경첩과 걸쇠까지 직접 달아 여닫이로 완성한 상자입니다.</p>
+      <img class="shot" src="images/hinge-box.jpg" alt="경첩과 걸쇠를 단 목재 상자, 뚜껑을 연 모습">
+    </div>
+
+    <div class="work">
       <p class="work-name">원목 벤치</p>
       <div class="tag-train">훈련 실습</div>
       <p class="soft">좌판과 다리를 짜 맞춘 벤치입니다.</p>
@@ -612,10 +619,10 @@
     </div>
 
     <div class="work">
-      <p class="work-name">보석함</p>
+      <p class="work-name">공구함</p>
       <div class="tag-train">훈련 실습</div>
-      <p class="soft">경첩과 걸쇠까지 직접 달아 여닫이로 완성한 상자입니다.</p>
-      <img class="shot" src="images/hinge-box.jpg" alt="경첩과 걸쇠를 단 목재 상자, 뚜껑을 연 모습">
+      <p class="soft">스케치업으로 직접 설계한 도면 그대로 짠 박공 지붕 공구함입니다.</p>
+      <img class="shot" src="images/toolbox-real.jpg" alt="설계도대로 실제로 완성한 박공 지붕 공구함">
     </div>
 
     <div class="work">
@@ -623,13 +630,6 @@
       <div class="tag-train">훈련 실습</div>
       <p class="soft">멍에·장선을 짜고 트러스까지 올린 바닥 구조입니다.</p>
       <img class="shot" src="images/floor.jpg" alt="멍에와 장선을 짜서 완성한 바닥 구조">
-    </div>
-
-    <div class="work">
-      <p class="work-name">공구함</p>
-      <div class="tag-train">훈련 실습</div>
-      <p class="soft">스케치업으로 직접 설계한 도면 그대로 짠 박공 지붕 공구함입니다.</p>
-      <img class="shot" src="images/toolbox-real.jpg" alt="설계도대로 실제로 완성한 박공 지붕 공구함">
     </div>
   </section>
 
@@ -792,16 +792,8 @@
         a.appendChild(document.createTextNode(' ' + label));
       });
 
-      /* 기존에 실제로 있는 작품/항목 이름은 같은 순서 위치로 매칭해서 이름만 자동 반영
-         — 사진이 필요한 새 항목은 이 방식으로 추가되지 않습니다 */
-      if (node.children && node.children.length){
-        var names = document.querySelectorAll('#' + id + ' .work-name');
-        node.children.forEach(function(leaf, j){
-          if (!leaf || !leaf.text || !names[j]) return;
-          var t = String(leaf.text).trim();
-          if (t) names[j].textContent = t;
-        });
-      }
+      /* 하위 항목(작품 이름) 자동 동기화는 껐습니다 — 순서가 바뀌면
+         이름과 사진이 어긋나는 문제가 있어서, 이제부터는 수동으로 반영합니다 */
     });
   }
 
