@@ -574,6 +574,13 @@
       <p class="soft">멍에·장선을 짜고 트러스까지 올린 바닥 구조입니다.</p>
       <img class="shot" src="images/floor.jpg" alt="멍에와 장선을 짜서 완성한 바닥 구조">
     </div>
+
+    <div class="work">
+      <p class="work-name">벽 설치</p>
+      <div class="tag-train">훈련 실습</div>
+      <p class="soft">틀을 세우고 아치형 출입구까지 낸 벽체 구조입니다.</p>
+      <img class="shot" src="images/wall.jpg" alt="아치형 출입구가 있는 벽체 구조, 내부에 벤치가 놓여 있음">
+    </div>
   </section>
 
 
@@ -671,6 +678,76 @@
   syncNavFromSitemap();
   window.addEventListener('storage', function(e){
     if(e.key === 'baobab-sitemap-v1') syncNavFromSitemap();
+  });
+})();
+
+(function(){
+  /* 사이트맵의 "04 내가 만든 작품" 아래 항목을 작품 목록에 반영
+     — "이름 | 파일명.jpg | 설명" 형식으로 적은 항목만 자동 반영됩니다.
+       (사진은 images/ 폴더에 미리 올려둔 파일명이어야 합니다)
+     이름만 적힌 항목(구분자 "|" 없음)은 건드리지 않습니다 — 기존 하드코딩된 작품을 보존하기 위함.
+     항목을 지워도 이미 반영된 작품은 자동으로 삭제되지 않습니다(안전을 위한 설계). */
+  var STORAGE_KEY = 'baobab-sitemap-v1';
+  var WORKS_SECTION_INDEX = 3; // 상위 5개 중 4번째: "04 내가 만든 작품"
+
+  function parseLeaf(text){
+    var parts = String(text || '').split('|').map(function(s){ return s.trim(); });
+    return { name: parts[0] || '', img: parts[1] || '', desc: parts[2] || '' };
+  }
+
+  function syncWorksFromSitemap(){
+    var raw;
+    try{ raw = localStorage.getItem(STORAGE_KEY); }catch(e){ return; }
+    if(!raw) return;
+    var tree;
+    try{ tree = JSON.parse(raw); }catch(e){ return; }
+    var top = tree && tree.children;
+    var worksNode = top && top[WORKS_SECTION_INDEX];
+    if(!worksNode || !worksNode.children || !worksNode.children.length) return;
+
+    var section = document.getElementById('works');
+    if(!section) return;
+
+    function findByName(name){
+      var blocks = section.querySelectorAll('.work');
+      for(var i=0;i<blocks.length;i++){
+        var p = blocks[i].querySelector('.work-name');
+        if(p && p.textContent.trim() === name) return blocks[i];
+      }
+      return null;
+    }
+
+    worksNode.children.forEach(function(leaf){
+      if(!leaf.text || leaf.text.indexOf('|') === -1) return; // 이름만 있는 항목은 건드리지 않음
+      var info = parseLeaf(leaf.text);
+      if(!info.name) return;
+
+      var block = findByName(info.name);
+      if(!block){
+        block = document.createElement('div');
+        block.className = 'work';
+        block.innerHTML = '<p class="work-name"></p><div class="tag-train">훈련 실습</div><p class="soft"></p>';
+        section.appendChild(block);
+      }
+      block.querySelector('.work-name').textContent = info.name;
+      var soft = block.querySelector('.soft');
+      if(soft) soft.textContent = info.desc;
+      if(info.img){
+        var img = block.querySelector('.shot');
+        if(!img){
+          img = document.createElement('img');
+          img.className = 'shot';
+          block.appendChild(img);
+        }
+        img.src = 'images/' + info.img;
+        img.alt = info.name;
+      }
+    });
+  }
+
+  syncWorksFromSitemap();
+  window.addEventListener('storage', function(e){
+    if(e.key === STORAGE_KEY) syncWorksFromSitemap();
   });
 })();
 </script>
